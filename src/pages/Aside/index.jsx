@@ -4,9 +4,15 @@ import { useForceUpdate } from '@mantine/hooks';
 import { IconRefresh } from '@tabler/icons';
 import OrdersCounter from './components/OrdersCounter';
 import DayRevenue from './components/DayRevenue';
+import { useAuth } from '../../context/AuthContext';
 
 function AsideWrapper() {
   const forcedUpdate = useForceUpdate();
+  const { user } = useAuth();
+
+  // eslint-disable-next-line react/jsx-no-useless-fragment
+  if (!user) return <></>;
+
   return (
     <Stack p={10} justify="space-between">
       <Text ta="center" fz="sm" td="underline">Summary</Text>
