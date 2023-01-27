@@ -1,0 +1,39 @@
+{
+  "name": "dashboard",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@emotion/react": "^11.10.5",
+    "@mantine/core": "^5.9.5",
+    "@mantine/hooks": "^5.9.5",
+    "@mantine/notifications": "^5.9.6",
+    "@tabler/icons": "^1.118.0",
+    "axios": "^1.2.2",
+    "lodash.differencewith": "^4.5.0",
+    "lodash.isequal": "^4.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.1",
+    "socket.io-client": "^4.5.4",
+    "swr": "^2.0.0",
+    "vite-plugin-svgr": "^2.4.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.22",
+    "@types/react-dom": "^18.0.7",
+    "@vitejs/plugin-react": "^2.2.0",
+    "eslint": "^8.30.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsx-a11y": "^6.6.1",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "vite": "^3.2.0"
+  }
+}
