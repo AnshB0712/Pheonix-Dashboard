@@ -11,7 +11,7 @@ function AsideWrapper() {
   const { user } = useAuth();
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (!user) return <></>;
+  if (!user.token) return <></>;
 
   return (
     <Stack p={10} justify="space-between">
