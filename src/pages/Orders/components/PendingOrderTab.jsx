@@ -22,7 +22,7 @@ function PendingOrderTab() {
 
   useEffect(() => {
     // const socket = io(`${import.meta.env.VITE_BACKEND_URL}/admin/todays-orders`);
-    const socket = io('http://localhost:3000/admin/todays-orders', {
+    const socket = io('https://pheonix-server-two.onrender.com/admin/todays-orders', {
       auth: {
         token: user.token,
       },
