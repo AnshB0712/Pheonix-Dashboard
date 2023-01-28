@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 /* eslint-disable eqeqeq */
 import {
   Card,
@@ -53,12 +54,14 @@ function CompletedOrdersCard({
           margin: '0',
         }}
         >
-          {items.map((obj) => (
-            <li style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              listStyleType: 'circle',
-            }}
+          {items.map((obj, i) => (
+            <li
+              style={{
+                display: 'flex',
+                justifyContent: 'space-between',
+                listStyleType: 'circle',
+              }}
+              key={i}
             >
               <Text fz={12} fw={500} fs="italic" transform="capitalize">{obj.itemName}</Text>
               <Text fz={12} fw={500} fs="italic">{`₹${obj.perPrice}`}</Text>
