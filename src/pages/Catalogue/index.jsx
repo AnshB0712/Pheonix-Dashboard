@@ -13,7 +13,7 @@ import DisplayData from '../../components/DisplayData';
 import SearchInput from './components/SearchInput';
 
 function Catalogue() {
-  const { data, mutate: catalogueMutate } = useGetCatalogue();
+  const { data, mutate: catalogueMutate, isLoading } = useGetCatalogue();
   const [query, setQuery] = useState('');
 
   // ITEMS THAT ARE RETURNED BY SERVER AND FILTERED BY THE QUERY STATE
@@ -34,7 +34,7 @@ function Catalogue() {
         </Button>
       </Flex>
       <CardsContainer>
-        <DisplayData data={items} Component={CatalogueCards} componentProps={{ catalogueMutate }} />
+        <DisplayData data={items} Component={CatalogueCards} componentProps={{ catalogueMutate, query }} isLoading={isLoading} />
       </CardsContainer>
       {/* PLACE TO MODAL TO APPEAR */}
       <Outlet context={[catalogueMutate]} />

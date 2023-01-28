@@ -6,7 +6,7 @@ import { useDisclosure } from '@mantine/hooks';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function OrderItemsPopOver({ orderItems }) {
+export function OrderItemsPopOver({ orderItems }) {
   const [opened, { close, open }] = useDisclosure(false);
   return (
     <Popover width={200} position="bottom" withArrow shadow="md" opened={opened}>

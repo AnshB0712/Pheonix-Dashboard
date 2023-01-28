@@ -29,9 +29,8 @@ function SearchBarForPendingOrders({
             radius={8}
             placeholder="Search Via WhatsApp Number"
             style={{
-              marginLeft: 'auto',
               width: '100%',
-              maxWidth: '300px',
+              maxWidth: '330px',
             }}
             rightSection={(
               <ActionIcon disabled={query.length !== 10}>

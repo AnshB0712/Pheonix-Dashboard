@@ -8,7 +8,7 @@ import CompletedOrdersCard from './CompletedOrdersCard';
 
 function CompletedOrdersTab() {
   const [orderType, setOrderType] = useState('7');
-  const { data } = useGetAllCompletedOrders(orderType);
+  const { data, isLoading } = useGetAllCompletedOrders(orderType);
   // TO SEARCH ORDER FOR ON THE BASIS OF PHONE NUMBER
   const [query, setQuery] = useState('');
   const queriedOrders = data?.data?.filter((obj) => obj.orderByMobile.includes(query));
@@ -29,7 +29,7 @@ function CompletedOrdersTab() {
           <section style={{ display: 'grid', gridTemplateRows: '.2fr 1fr' }}>
             <SearchBarForPendingOrders query={query} setQuery={setQuery} queriedOrders={queriedOrders} completedOrderTab />
             <CardsContainer>
-              <DisplayData data={queriedOrders} Component={CompletedOrdersCard} componentProps={{ query }} />
+              <DisplayData data={queriedOrders} Component={CompletedOrdersCard} componentProps={{ query }} isLoading={isLoading} />
             </CardsContainer>
           </section>
         </MantineTabs.Panel>
@@ -38,7 +38,7 @@ function CompletedOrdersTab() {
           <section style={{ display: 'grid', gridTemplateRows: '.2fr 1fr' }}>
             <SearchBarForPendingOrders query={query} setQuery={setQuery} queriedOrders={queriedOrders} completedOrderTab />
             <CardsContainer>
-              <DisplayData data={queriedOrders} Component={CompletedOrdersCard} componentProps={{ query }} />
+              <DisplayData data={queriedOrders} Component={CompletedOrdersCard} componentProps={{ query }} isLoading={isLoading} />
             </CardsContainer>
           </section>
         </MantineTabs.Panel>

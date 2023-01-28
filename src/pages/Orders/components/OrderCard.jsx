@@ -9,9 +9,10 @@ import useChangeOrderStatus from '../../../hooks/useChangeOrderStatus';
 
 function OrderCard({
   data: {
-    orderByName, orderByMobile, _id, createdAt, items, orderType, amount, setOrders,
+    orderByName, orderByMobile, _id, createdAt, items, orderType, amount,
   },
   query,
+  setOrders,
 }) {
   const [value, toggle] = useToggle([false, true]);
   const { trigger, isLoading } = useChangeOrderStatus();

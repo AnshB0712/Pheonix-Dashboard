@@ -12,6 +12,7 @@ import ProtectedRoute from './ProtectedRoute';
 import PersistLogin from './PersistLogin';
 import Transactions from '../pages/Transactions';
 import TransactionDetailsModal from '../pages/Transactions/components/TransactionDetailsModal';
+import AsideWrapper from '../pages/Aside';
 
 function AppShell({ colorScheme, toggleColorScheme }) {
   const [open, setOpen] = useState(false);
@@ -47,6 +48,7 @@ function AppShell({ colorScheme, toggleColorScheme }) {
               <Route path="transactions" element={<Transactions />}>
                 <Route path=":orderId" element={<TransactionDetailsModal />} />
               </Route>
+              <Route path="/summary" element={<AsideWrapper />} />
             </Route>
           </Route>
         </Route>

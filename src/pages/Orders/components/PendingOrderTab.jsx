@@ -22,7 +22,7 @@ function PendingOrderTab() {
 
   useEffect(() => {
     // const socket = io(`${import.meta.env.VITE_BACKEND_URL}/admin/todays-orders`);
-    const socket = io('http://localhost:3000/admin/todays-orders', {
+    const socket = io(`${import.meta.env.VITE_BACKEND_URL}/admin/todays-orders`, {
       auth: {
         token: user.token,
       },
@@ -49,20 +49,17 @@ function PendingOrderTab() {
     if (!isLoading && SWRdata?.data) {
       setOrders((prev) => {
         const uniqueOrders = differenceWith(SWRdata.data, prev, isEqual);
-        console.log(uniqueOrders);
         return [...prev, ...uniqueOrders];
       });
     }
   }, [SWRdata]);
-
-  if (isLoading) return <p>loading...</p>;
 
   return (
     <Tabs.Panel value="PNDG" p={5}>
       <section style={{ display: 'grid', gridTemplateRows: '.2fr 1fr' }}>
         <SearchBarForPendingOrders query={query} setQuery={setQuery} queriedOrders={queriedOrders} />
         <CardsContainer>
-          <DisplayData data={queriedOrders} Component={OrderCard} componentProps={{ query, setOrders }} />
+          <DisplayData data={queriedOrders} Component={OrderCard} componentProps={{ query, setOrders }} isLoading={isLoading} />
         </CardsContainer>
       </section>
     </Tabs.Panel>

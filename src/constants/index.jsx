@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  IconBook, IconCoinRupee, IconLogin, IconTornado,
+  IconBook, IconCoinRupee, IconLogin, IconReceipt, IconTornado,
 } from '@tabler/icons';
 
 export const NAVLINK_DATA = [
@@ -15,6 +15,9 @@ export const NAVLINK_DATA = [
   },
   {
     icon: <IconCoinRupee size={18} />, color: 'teal', label: 'Transactions', to: '/transactions',
+  },
+  {
+    icon: <IconReceipt size={18} />, color: 'salmon', label: 'Summary', to: '/summary',
   },
 ];
 

@@ -25,7 +25,7 @@ function AuthForm() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
-  const { setUser } = useAuth();
+  const { setUser, user } = useAuth();
 
   const navigate = useNavigate();
 
@@ -59,6 +59,11 @@ function AuthForm() {
   useEffect(() => {
     if (error) { setError(''); }
   }, [formValues]);
+
+  useEffect(() => {
+    if (!user?.token) return;
+    navigate('/orders');
+  }, []);
 
   return (
     <Container
