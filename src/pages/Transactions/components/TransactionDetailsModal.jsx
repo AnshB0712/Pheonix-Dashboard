@@ -59,10 +59,10 @@ function TransactionDetailsModal() {
   const { data, isLoading } = useSWR(`admin/transaction/${orderId}`, fetcher);
   const navitgate = useNavigate();
 
-  if (!data) return <></>;
+  if (!data && isLoading) return <LoadingOverlay visible={isLoading} />;
+
   return (
     <Modal opened centered withCloseButton={false} onClose={() => navitgate(-1)}>
-      <LoadingOverlay visible={isLoading} />
       <Paper p="xs" style={{ position: 'relative' }}>
         <Title order={5} ta="center" mb={10}>Transaction</Title>
         <Stack spacing={10}>
