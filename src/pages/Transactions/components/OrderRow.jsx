@@ -40,7 +40,7 @@ export function OrderItemsPopOver({ orderItems }) {
             </thead>
             <tbody>
               {orderItems.map((obj) => (
-                <tr>
+                <tr key={obj._id}>
                   <td>
                     <Text ta="center" transform="capitalize" fz={10} fw={700}>{obj.itemName}</Text>
                   </td>

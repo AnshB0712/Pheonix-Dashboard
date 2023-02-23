@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   ActionIcon,
-  Group, Stack, Table, Text, TextInput,
+  Group, LoadingOverlay, Stack, Table, Text, TextInput,
 } from '@mantine/core';
 import { Outlet } from 'react-router-dom';
 import { IconSearch } from '@tabler/icons';
@@ -10,6 +10,7 @@ import DisplayData from '../../components/DisplayData';
 import OrderRow from './components/OrderRow';
 import useGetAllSxsTxnOrder from '../../hooks/useGetAllSxsTxnOrder';
 import MobileOrderRow from './components/MobileOrderRow';
+import DailyStats from './components/DailyStats';
 
 function Transactions() {
   const { data, isLoading } = useGetAllSxsTxnOrder();
@@ -17,7 +18,7 @@ function Transactions() {
   const mediaQ = useMediaQuery('(max-width:500px)');
   const filteredOrders = data?.data?.filter((order) => order.orderByMobile.includes(query));
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <LoadingOverlay visible />;
 
   return (
     <>
@@ -42,6 +43,7 @@ function Transactions() {
           />
           <Text fs="italic" ta="center">{`Date: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}`}</Text>
         </Group>
+        <DailyStats />
         {mediaQ
           ? <DisplayData data={filteredOrders} Component={MobileOrderRow} componentProps={{ query }} isLoading={isLoading} />
           : <OrdersTable filteredOrders={filteredOrders} query={query} isLoading={isLoading} />}

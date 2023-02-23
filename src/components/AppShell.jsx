@@ -9,7 +9,7 @@ import Catalogue from '../pages/Catalogue';
 import EditAndAddModal from '../pages/Catalogue/components/EditAndAddModal';
 import AuthForm from './AuthForm';
 import ProtectedRoute from './ProtectedRoute';
-import PersistLogin from './PersistLogin';
+// import PersistLogin from './PersistLogin';
 import Transactions from '../pages/Transactions';
 import TransactionDetailsModal from '../pages/Transactions/components/TransactionDetailsModal';
 import AsideWrapper from '../pages/Aside';
@@ -38,19 +38,19 @@ function AppShell({ colorScheme, toggleColorScheme }) {
     >
       <Routes>
         <Route path="/">
-          <Route element={<PersistLogin />}>
-            <Route index element={<AuthForm />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/orders" element={<Orders />} />
-              <Route path="catalogue" element={<Catalogue />}>
-                <Route path="forms/:id" element={<EditAndAddModal />} />
-              </Route>
-              <Route path="transactions" element={<Transactions />}>
-                <Route path=":orderId" element={<TransactionDetailsModal />} />
-              </Route>
-              <Route path="/summary" element={<AsideWrapper />} />
+          {/* <Route element={<PersistLogin />}> */}
+          <Route index element={<AuthForm />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/orders" element={<Orders />} />
+            <Route path="catalogue" element={<Catalogue />}>
+              <Route path="forms/:id" element={<EditAndAddModal />} />
             </Route>
+            <Route path="transactions" element={<Transactions />}>
+              <Route path=":orderId" element={<TransactionDetailsModal />} />
+            </Route>
+            <Route path="/summary" element={<AsideWrapper />} />
           </Route>
+          {/* </Route> */}
         </Route>
       </Routes>
     </MantineAppShell>
