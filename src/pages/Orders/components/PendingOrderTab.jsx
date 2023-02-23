@@ -2,17 +2,17 @@
 import React, { useEffect, useState } from 'react';
 import { Tabs } from '@mantine/core';
 import { io } from 'socket.io-client';
-import differenceWith from 'lodash.differencewith';
-import isEqual from 'lodash.isequal';
+// import differenceWith from 'lodash.differencewith';
+// import isEqual from 'lodash.isequal';
 import OrderCard from './OrderCard';
 import CardsContainer from '../../../components/CardsContainer';
 import SearchBarForPendingOrders from './SearchBarForPendingOrders';
 import DisplayData from '../../../components/DisplayData';
 import { useAuth } from '../../../context/AuthContext';
-import useGetAllTodaysOrders from '../../../hooks/useGetAllTodaysOrders';
+// import useGetAllTodaysOrders from '../../../hooks/useGetAllTodaysOrders';
 
 function PendingOrderTab() {
-  const { data: SWRdata, isLoading } = useGetAllTodaysOrders();
+  // const { data: SWRdata, isLoading } = useGetAllTodaysOrders();
   const [orders, setOrders] = useState([]);
   // TO SEARCH ORDER FOR ON THE BASIS OF PHONE NUMBER
   const [query, setQuery] = useState('');
@@ -22,7 +22,7 @@ function PendingOrderTab() {
 
   useEffect(() => {
     // const socket = io(`${import.meta.env.VITE_BACKEND_URL}/admin/todays-orders`);
-    const socket = io('https://pheonix-server-two.onrender.com/admin/todays-orders', {
+    const socket = io('http://localhost:3000/admin/todays-orders', {
       auth: {
         token: user.token,
       },
@@ -31,7 +31,12 @@ function PendingOrderTab() {
     socket.on('connect', () => {
       console.log(`Socket connected to ${socket.id}`);
       socket.on('new-order', (order) => {
-        setOrders((p) => ([...p, order]));
+        console.log(order);
+        setOrders((p) => {
+          const ordersStrings = [...p, order].map((obj) => JSON.stringify(obj));
+          const uniqueOrders = [...new Set(ordersStrings)];
+          return uniqueOrders.map((obj) => JSON.parse(obj));
+        });
       });
     });
 
@@ -45,21 +50,21 @@ function PendingOrderTab() {
     };
   }, [user]);
 
-  useEffect(() => {
-    if (!isLoading && SWRdata?.data) {
-      setOrders((prev) => {
-        const uniqueOrders = differenceWith(SWRdata.data, prev, isEqual);
-        return [...prev, ...uniqueOrders];
-      });
-    }
-  }, [SWRdata]);
+  // useEffect(() => {
+  //   if (!isLoading && SWRdata?.data) {
+  //     setOrders((prev) => {
+  //       const uniqueOrders = differenceWith(SWRdata.data, prev, isEqual);
+  //       return [...prev, ...uniqueOrders];
+  //     });
+  //   }
+  // }, [SWRdata]);
 
   return (
     <Tabs.Panel value="PNDG" p={5}>
       <section style={{ display: 'grid', gridTemplateRows: '.2fr 1fr' }}>
         <SearchBarForPendingOrders query={query} setQuery={setQuery} queriedOrders={queriedOrders} />
         <CardsContainer>
-          <DisplayData data={queriedOrders} Component={OrderCard} componentProps={{ query, setOrders }} isLoading={isLoading} />
+          <DisplayData data={queriedOrders} Component={OrderCard} componentProps={{ query, setOrders }} />
         </CardsContainer>
       </section>
     </Tabs.Panel>
