@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IconLock, IconAt } from '@tabler/icons';
 import {
   TextInput,
@@ -10,27 +10,17 @@ import {
   Group,
   Title,
   Container,
-  Checkbox,
 } from '@mantine/core';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
-import customAxios from '../api/axios';
 
 function AuthForm() {
   const [formValues, setFormValues] = useState({
     username: '',
     password: '',
-    persist: true,
   });
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  const { setUser, user } = useAuth();
-
+  const { dispatch, user } = useAuth();
   const navigate = useNavigate();
-
-  const location = useLocation();
-  const from = location.state?.from?.pathname || '/orders';
 
   const handleChange = (e) => {
     setFormValues((p) => ({
@@ -39,31 +29,18 @@ function AuthForm() {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    setLoading(true);
-    try {
-      const { data } = await customAxios.post('/admin/login', formValues);
-      setUser({ token: data.token });
-      // eslint-disable-next-line no-unused-expressions
-      formValues.persist && localStorage.setItem('auth_persist', formValues.persist);
-      navigate(from, { replace: true });
-    } catch (err) {
-      console.log(err);
-      setError(err.response.data.message);
-    } finally {
-      setLoading(false);
-    }
+    dispatch({
+      type: 'INITIATE_USER_AUTH',
+      payload: formValues,
+    });
   };
 
   useEffect(() => {
-    if (error) { setError(''); }
-  }, [formValues]);
-
-  useEffect(() => {
-    if (!user?.token) return;
+    if (!user.user?.token) return;
     navigate('/orders');
-  }, []);
+  }, [user.user]);
 
   return (
     <Container
@@ -82,7 +59,7 @@ function AuthForm() {
       >
         <Title order={4} ta="center">Authentication Form</Title>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <LoadingOverlay visible={loading} />
+          <LoadingOverlay visible={user?.isUserLoading} />
           <TextInput
             mt="md"
             required
@@ -103,18 +80,9 @@ function AuthForm() {
             onChange={(e) => handleChange(e)}
           />
 
-          <Checkbox
-            size="xs"
-            radius="sm"
-            mt="md"
-            checked={formValues.persist}
-            labelPosition="left"
-            label="Remember Me"
-          />
-
-          {error && (
+          {user.userError && (
             <Text color="red" size="sm" mt="sm" ta="center" fw={500}>
-              {`ERR: ${error}`}
+              {`ERR: ${user.userError?.message}`}
             </Text>
           )}
 

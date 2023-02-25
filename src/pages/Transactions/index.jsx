@@ -79,6 +79,9 @@ function OrdersTable({ filteredOrders, query, isLoading }) {
           <th>
             <Text ta="center" fz="xs" fw={500}>TxnStatus</Text>
           </th>
+          <th>
+            <Text ta="center" fz="xs" fw={500}>Time</Text>
+          </th>
         </tr>
       </thead>
       <tbody>

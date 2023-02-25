@@ -3,6 +3,7 @@ import {
 } from '@mantine/core';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import dateToISO from '../../../utils/dateToISO';
 import { OrderItemsPopOver } from './OrderRow';
 
 function MobileOrderRow({ data: order, query }) {
@@ -10,9 +11,14 @@ function MobileOrderRow({ data: order, query }) {
   return (
     <Card radius="md" withBorder onClick={() => navigate(`/transactions/${order._id}`)}>
 
-      <Card.Section py={10} px={5} style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <Card.Section py={10} px={5} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <OrderItemsPopOver orderItems={order.items} />
-        <Badge style={{ marginLeft: 'auto' }} color="teal">Dine In</Badge>
+        <Text size="xs" align="center">
+          Time:
+          {' '}
+          {dateToISO(order.createdAt)}
+        </Text>
+        <Badge color="teal">Dine In</Badge>
       </Card.Section>
 
       <Card.Section px={5} style={{ display: 'flex', justifyContent: 'space-between' }}>

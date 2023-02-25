@@ -5,13 +5,13 @@ import { useAuth } from '../context/AuthContext';
 import refreshAccessToken from '../api/refreshAccessToken';
 
 const usePrivateAxios = () => {
-  const { user, setUser } = useAuth();
+  const { user, dispatch } = useAuth();
 
   useEffect(() => {
     const requestInterceptor = customAxios.interceptors.request.use(
       (config) => {
         if (!config.headers.authorization) {
-          config.headers.authorization = user.token ? `Bearer ${user.token}` : undefined;
+          config.headers.authorization = user.user?.token ? `Bearer ${user.user?.token}` : undefined;
         }
         return config;
       },
@@ -24,7 +24,7 @@ const usePrivateAxios = () => {
         if (err?.response?.status === 403 && !prevReq?.sent) {
           prevReq.sent = true;
           const newAccessToken = await refreshAccessToken();
-          setUser({ token: newAccessToken });
+          dispatch({ action: { type: 'UPADTE_USER_TOKEN', payload: newAccessToken } });
           prevReq.headers.authorization = `Bearer ${newAccessToken}`;
           return customAxios(prevReq);
         }
@@ -35,7 +35,7 @@ const usePrivateAxios = () => {
       customAxios.interceptors.request.eject(requestInterceptor);
       customAxios.interceptors.response.eject(responseInterceptor);
     };
-  }, [user, setUser]);
+  }, [user.user, dispatch]);
 
   return (customAxios);
 };

@@ -5,6 +5,7 @@ import {
 import { useDisclosure } from '@mantine/hooks';
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import dateToISO from '../../../utils/dateToISO';
 
 export function OrderItemsPopOver({ orderItems }) {
   const [opened, { close, open }] = useDisclosure(false);
@@ -91,6 +92,11 @@ function OrderRow({ data: order, query }) {
       <td>
         <Text ta="center" fz="sm" fw={400}>
           {order.paymentStatus === 'PNDG' ? <Badge color="yellow" size="xs">Pending</Badge> : <Badge color="green" size="xs">Successul</Badge>}
+        </Text>
+      </td>
+      <td>
+        <Text ta="center" fz="sm" fw={400}>
+          {dateToISO(order?.createdAt)}
         </Text>
       </td>
     </tr>

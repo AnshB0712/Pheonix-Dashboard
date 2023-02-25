@@ -3,11 +3,10 @@ import {
   Group, Navbar as MantineNavbar, Switch, Text, ThemeIcon, UnstyledButton,
 } from '@mantine/core';
 import { IconChevronRight, IconMoonStars, IconPower } from '@tabler/icons';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
 import { NAVLINK_DATA } from '../constants';
 import { useAuth } from '../context/AuthContext';
-import customAxios from '../api/axios';
 
 function MainLink({
   icon, color, label, to, setOpen, disabled,
@@ -54,10 +53,10 @@ function Links({ setOpen }) {
   const mediaQ = useMediaQuery('(min-width:1000px)');
 
   const links = NAVLINK_DATA.map((link) => {
-    if (user?.token && link.label === 'Login') return;
+    if (user.user?.token && link.label === 'Login') return;
     if (mediaQ && link.label === 'Summary') return;
     // eslint-disable-next-line consistent-return, react/jsx-props-no-spreading
-    return <MainLink disabled={!user?.token} setOpen={setOpen} {...link} key={link.label} />;
+    return <MainLink disabled={!user.user?.token} setOpen={setOpen} {...link} key={link.label} />;
   });
 
   return <div>{links}</div>;
@@ -82,21 +81,13 @@ function Navbar({
 }
 
 function LogoutButton() {
-  const navigate = useNavigate();
-  const { setUser, user } = useAuth();
-  const handleLogout = async () => {
-    try {
-      console.log('object');
-      await customAxios.get('/shared/logout');
-      setUser({ token: undefined });
-      navigate('/');
-    } catch (error) {
-      console.log(error);
-    }
+  const { dispatch, user } = useAuth();
+  const handleLogout = () => {
+    dispatch({ type: 'LOGOUT_USER' });
   };
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
-  if (!user?.token) return <></>;
+  if (!user.user?.token) return <></>;
   return (
     <UnstyledButton
       sx={(theme) => ({

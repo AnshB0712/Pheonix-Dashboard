@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const BASE_URL = 'https://pheonix-server-two.onrender.com';
+export const BASE_URL = 'http://localhost:3000';
 
 const customAxios = axios.create({
   baseURL: BASE_URL,
