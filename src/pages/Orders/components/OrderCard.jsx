@@ -9,7 +9,7 @@ import useChangeOrderStatus from '../../../hooks/useChangeOrderStatus';
 
 function OrderCard({
   data: {
-    orderByName, orderByMobile, _id, createdAt, items, orderType, amount, deliveryTag,
+    orderByName, orderByMobile, _id, createdAt, items, orderType, amount,
   },
   query,
   setOrders,
@@ -18,7 +18,7 @@ function OrderCard({
   const { trigger, isLoading } = useChangeOrderStatus();
   const handleChange = async () => {
     try {
-      await trigger({ id: _id, deliveryTag });
+      await trigger({ id: _id });
       toggle();
       setOrders((prevOrders) => prevOrders.filter((order) => order._id !== _id));
     } catch (error) {

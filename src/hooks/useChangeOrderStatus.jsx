@@ -9,7 +9,6 @@ const useChangeOrderStatus = () => {
     try {
       await customAxios.patch(url, {
         id: arg.id,
-        deliveryTag: arg.deliveryTag,
         orderStatus: 'SXS',
       });
     } catch (error) {
