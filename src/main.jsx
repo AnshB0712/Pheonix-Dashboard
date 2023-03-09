@@ -5,13 +5,16 @@ import { NotificationsProvider } from '@mantine/notifications';
 
 import App from './App';
 import AuthContextProvider from './context/AuthContext';
+import OrderContextProvider from './context/OrdersContext';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <BrowserRouter>
       <AuthContextProvider>
         <NotificationsProvider>
-          <App />
+          <OrderContextProvider>
+            <App />
+          </OrderContextProvider>
         </NotificationsProvider>
       </AuthContextProvider>
     </BrowserRouter>

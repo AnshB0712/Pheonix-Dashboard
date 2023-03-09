@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import { useMediaQuery } from '@mantine/hooks';
 import { NAVLINK_DATA } from '../constants';
 import { useAuth } from '../context/AuthContext';
+import { useOrderContext } from '../context/OrdersContext';
 
 function MainLink({
   icon, color, label, to, setOpen, disabled,
@@ -82,8 +83,10 @@ function Navbar({
 
 function LogoutButton() {
   const { dispatch, user } = useAuth();
+  const { wokeUp } = useOrderContext();
   const handleLogout = () => {
     dispatch({ type: 'LOGOUT_USER' });
+    wokeUp.current = 0;
   };
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
