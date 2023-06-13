@@ -20,7 +20,7 @@ function Header({
             size="md"
           />
         </MediaQuery>
-        <Title ta="center" order={2} style={{ margin: '0 auto' }}>Pheonix Dashboard</Title>
+        <Title ta="center" order={2} style={{ margin: '0 auto' }}>HungryHubs Dashboard</Title>
       </div>
     </MantineHeader>
   );
